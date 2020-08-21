@@ -19,6 +19,7 @@ public class SlackWiseRadioGroup extends LinearLayout {
     // Attribute Variables
     private int mCheckedId = View.NO_ID;
     private boolean mProtectFromCheckedChange = false;
+    private int orientation = LinearLayout.VERTICAL;
     // Variables
     private OnCheckedChangeListener mOnCheckedChangeListener;
     private HashMap<Integer, View> mChildViewsMap = new HashMap<>();
@@ -61,10 +62,10 @@ public class SlackWiseRadioGroup extends LinearLayout {
 
     private void parseAttributes(AttributeSet attrs) {
         TypedArray a = getContext().obtainStyledAttributes(attrs,
-                R.styleable.slackWiseRadioGroup, 0, 0);
+                R.styleable.srb, 0, 0);
         try {
-            mCheckedId = a.getResourceId(R.styleable.slackWiseRadioGroup_checkId, View.NO_ID);
-
+            mCheckedId = a.getResourceId(R.styleable.srb_checkId, View.NO_ID);
+            orientation = a.getInt(R.styleable.srb_setOrientation,LinearLayout.VERTICAL);
         } finally {
             a.recycle();
         }
@@ -74,6 +75,7 @@ public class SlackWiseRadioGroup extends LinearLayout {
     private void setupView() {
         mChildOnCheckedChangeListener = new CheckedStateTracker();
         mPassThroughListener = new PassThroughHierarchyChangeListener();
+        setOrientation(orientation);
         super.setOnHierarchyChangeListener(mPassThroughListener);
     }
 

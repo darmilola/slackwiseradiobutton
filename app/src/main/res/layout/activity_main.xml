@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:srb="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.slackwise.slackwiseradiobutton.SlackWiseRadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.slackwise.slackwiseradiobutton.SlackWiseRadioButton
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            srb:setTextSize = "10dp"
+            srb:setEquationSize = "15dp"
+            srb:setEquation ="$\\int_0^\\infty e^{-x^2} dx=\\frac{\\sqrt{\\pi}}{2}$"
+            srb:setEquationColor = "@color/colorAccent"
+            srb:setEquationPadding = "10dp"
+            srb:setEquationViewBackgroundColor = "@color/White"
+            srb:setRadioButtonViewType = "equation"
+            srb:setBackground = "@color/colorPrimary"
+            srb:setSelectedBackground = "@drawable/create_course_edittext_background" />
+
+        <com.slackwise.slackwiseradiobutton.SlackWiseRadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            srb:setTextSize = "10dp"
+            srb:setTextPadding = "20dp"
+            srb:setTextColor = "@color/colorAccent"
+            srb:setText = "sggssjsjsjssjjjjjjjjjjjjjhhjhjhjhjhjhjhjhjhl;l;l;l;l;l;l;l;ll;;l;l;l;l;l;ll;l;sjsjhshshshshshs"
+            srb:setRadioButtonViewType = "text"
+            srb:setBackground = "@color/colorPrimary"
+            srb:setSelectedBackground = "@drawable/create_course_edittext_background" />
+
+        <com.slackwise.slackwiseradiobutton.SlackWiseRadioButton
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            srb:setTextSize = "10dp"
+            srb:setTextPadding = "20dp"
+            srb:setTextColor = "@color/colorAccent"
+            srb:setText = "sggssjsjsjssjsjsjhshshshshshs"
+            srb:setRadioButtonViewType = "text"
+            srb:setBackground = "@color/colorPrimary"
+            srb:setSelectedBackground = "@drawable/create_course_edittext_background" />
+
+        <com.slackwise.slackwiseradiobutton.SlackWiseRadioButton
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            srb:setTextSize="10dp"
+            srb:setTextPadding="20dp"
+            android:id="@+id/slackwise_radio_button_code"
+            srb:setRadioButtonViewType="code"
+            srb:setSourceCode = "hfhfhfh,dh66dgdy0.56"
+            srb:setBackground="@color/colorPrimary"
+            srb:setSelectedBackground="@drawable/create_course_edittext_background"/>
+    </com.slackwise.slackwiseradiobutton.SlackWiseRadioGroup>
+
+</LinearLayout>

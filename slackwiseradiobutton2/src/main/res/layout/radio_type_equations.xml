@@ -1,14 +1,11 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <katex.hourglass.in.mathlib.MathView
-        app:setTextColor="@color/colorPrimary"
         app:setTextSize="15sp"
         app:setClickable="false"
         android:id="@+id/equations_view"
-        app:setViewBackgroundColor="@color/transparent"
-        android:layout_gravity="center"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
