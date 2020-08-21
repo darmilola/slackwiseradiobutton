@@ -1,0 +1,11 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="WebViewLayout"
+        android:id="@+id/codes_view"/>
+
+
+</merge>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="slackWiseRadioButton">
+        <attr name="setTextColor" format="color|reference">
+        </attr>
+        <attr name="setTextSize" format="dimension|reference"/>
+        <attr name="setTypfeFace" format="reference"/>
+        <attr name="setText" format="string|reference"/>
+        <attr name="setTextPadding" format="dimension|reference"/>
+        <attr name="setSourceCode" format="reference|string"/>
+        <attr name="setLang" format="string|reference"/>
+        <attr name="setCodePadding" format="reference|string"/>
+        <attr name="setEquationColor" format="reference|color"/>
+        <attr name="setEquation" format="reference|string"/>
+        <attr name="setEquationViewBackgroundColor" format="color|reference"/>
+        <attr name="setEquationPadding" format="dimension|reference"/>
+        <attr name="setEquationTextSize" format="dimension|reference"/>
+        <attr name="setBackground" format="reference"/>
+        <attr name="setSelectedBackground" format="reference"/>
+        <attr name="setRadioButtonViewType" format="string">
+            <enum name="text" value="text"/>
+            <enum name="code" value="code"/>
+            <enum name="equation" value="equation"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="slackWiseRadioGroup">
+        <attr name="checkId" format="reference"/>
+    </declare-styleable>
+
+</resources>
