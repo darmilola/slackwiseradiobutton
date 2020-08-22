@@ -1,2 +1,2 @@
-include ':app', ':slackwiseradiobutton2'
+include ':app', ':slackwisebuttongroup'
 rootProject.name='slackwiseradiobutton'

@@ -1,4 +1,4 @@
-package com.slackwise.slackwiseradiobutton;
+package com.slackwise.slackwisebuttongroup;
 
 
 import android.content.Context;
@@ -9,12 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.slackwise.slackwiseradiobutton.R;
+
 import java.util.HashMap;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.RequiresApi;
 
-public class SlackWiseRadioGroup extends LinearLayout {
+public class SlackWiseButtonGroup extends LinearLayout {
 
     // Attribute Variables
     private int mCheckedId = View.NO_ID;
@@ -31,26 +33,26 @@ public class SlackWiseRadioGroup extends LinearLayout {
     // Constructors
     //================================================================================
 
-    public SlackWiseRadioGroup(Context context) {
+    public SlackWiseButtonGroup(Context context) {
         super(context);
         setupView();
     }
 
-    public SlackWiseRadioGroup(Context context, AttributeSet attrs) {
+    public SlackWiseButtonGroup(Context context, AttributeSet attrs) {
         super(context, attrs);
         parseAttributes(attrs);
         setupView();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
-    public SlackWiseRadioGroup(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SlackWiseButtonGroup(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         parseAttributes(attrs);
         setupView();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public SlackWiseRadioGroup(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public SlackWiseButtonGroup(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         parseAttributes(attrs);
         setupView();
@@ -62,10 +64,25 @@ public class SlackWiseRadioGroup extends LinearLayout {
 
     private void parseAttributes(AttributeSet attrs) {
         TypedArray a = getContext().obtainStyledAttributes(attrs,
-                R.styleable.srb, 0, 0);
+                R.styleable.slk, 0, 0);
         try {
-            mCheckedId = a.getResourceId(R.styleable.srb_checkId, View.NO_ID);
-            orientation = a.getInt(R.styleable.srb_setOrientation,LinearLayout.VERTICAL);
+            mCheckedId = a.getResourceId(R.styleable.slk_checkId, View.NO_ID);
+            String mOrientation = a.getString(R.styleable.slk_setOrientation);
+
+            if(mOrientation == null){
+
+                orientation = LinearLayout.VERTICAL;
+            }
+
+            else if(mOrientation.equalsIgnoreCase("0")){
+
+                orientation = LinearLayout.VERTICAL;
+            }
+            else if(mOrientation.equalsIgnoreCase("1")){
+
+                orientation = LinearLayout.HORIZONTAL;
+            }
+
         } finally {
             a.recycle();
         }
@@ -173,6 +190,24 @@ public class SlackWiseRadioGroup extends LinearLayout {
     // Public methods
     //================================================================================
 
+
+
+    public void setGroupOrientation(String mOrientation) {
+
+        if(mOrientation.equalsIgnoreCase("vertical")){
+
+            orientation = LinearLayout.VERTICAL;
+        }
+        else if(mOrientation.equalsIgnoreCase("horizontal")){
+
+            orientation = LinearLayout.HORIZONTAL;
+        }
+        else{
+
+            orientation = LinearLayout.HORIZONTAL;
+        }
+        setupView();
+    }
 
     public void setOnCheckedChangeListener(OnCheckedChangeListener onCheckedChangeListener) {
         mOnCheckedChangeListener = onCheckedChangeListener;
@@ -284,7 +319,7 @@ public class SlackWiseRadioGroup extends LinearLayout {
          * {@inheritDoc}
          */
         public void onChildViewAdded(View parent, View child) {
-            if (parent == SlackWiseRadioGroup.this && child instanceof CheckableRadio) {
+            if (parent == SlackWiseButtonGroup.this && child instanceof CheckableRadio) {
                 int id = child.getId();
                 // generates an id if it's missing
                 if (id == View.NO_ID) {
@@ -305,7 +340,7 @@ public class SlackWiseRadioGroup extends LinearLayout {
          * {@inheritDoc}
          */
         public void onChildViewRemoved(View parent, View child) {
-            if (parent == SlackWiseRadioGroup.this && child instanceof CheckableRadio) {
+            if (parent == SlackWiseButtonGroup.this && child instanceof CheckableRadio) {
                 ((CheckableRadio) child).removeOnCheckChangeListener(mChildOnCheckedChangeListener);
             }
             mChildViewsMap.remove(child.getId());

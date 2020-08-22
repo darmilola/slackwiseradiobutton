@@ -1,4 +1,4 @@
-package com.slackwise.slackwiseradiobutton;
+package com.slackwise.slackwisebuttongroup;
 
 import android.annotation.SuppressLint;
 import android.os.Build;

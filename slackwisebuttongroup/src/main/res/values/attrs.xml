@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="srb">
+    <declare-styleable name="slk">
 
-        <attr name="setTextColor" format="color|reference"></attr>
+        <attr name="setTextColor" format="color|reference"/>
         <attr name="setTextSize" format="dimension|reference"/>
-        <attr name="setTypfeFace" format="reference"/>
+        <attr name="setTypeFace" format="reference"/>
         <attr name="setText" format="string|reference"/>
         <attr name="setSourceCode" format="reference|string"/>
-        <attr name="setLang" format="string|reference"/>
+        <attr name="setLang" format="string|reference">
+            <enum name="java" value="1"/>
+            <enum name="python" value="2"/>
+            <enum name="javascript" value="3"/>
+            <enum name="ruby" value="4"/>
+            <enum name="csharp" value="5"/>
+            <enum name="php" value="6"/>
+            <enum name="sql" value="7"/>
+            <enum name="cplusplus" value="8"/>
+        </attr>
         <attr name="setEquationColor" format="reference|color"/>
         <attr name="setEquation" format="reference|string"/>
         <attr name="setEquationViewBackgroundColor" format="color|reference"/>
         <attr name="setEquationPadding" format="dimension|reference"/>
         <attr name="setEquationSize" format="dimension|reference"/>
-        <attr name="setBackground" format="reference"/>
         <attr name="setSelectedBackground" format="reference"/>
         <attr name="setRadioButtonViewType" format="string">
             <enum name="text" value="1"/>
@@ -23,7 +31,10 @@
         </attr>
         <attr name="checkId" format="reference"/>
         <attr name="setPadding" format="reference|dimension"/>
-        <attr name="setOrientation" format="integer"/>
+        <attr name="setOrientation" format="string">
+            <enum name="vertical" value = "0"/>
+            <enum name="horizontal" value = "1"/>
+        </attr>
         <attr name="selectedTextColor" format="color|reference"/>
     </declare-styleable>
 

@@ -2,7 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <katex.hourglass.in.mathlib.MathView
-        app:setTextSize="15sp"
         app:setClickable="false"
         android:id="@+id/equations_view"
         android:layout_margin="10dp"

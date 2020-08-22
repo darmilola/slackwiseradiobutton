@@ -1,4 +1,4 @@
-package com.slackwise.slackwiseradiobutton;
+package com.slackwise.slackwisebuttongroup;
 
 
 import android.content.Context;
@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,20 +19,26 @@ import android.widget.TextView;
 
 import com.protectsoft.webviewcode.Codeview;
 import com.protectsoft.webviewcode.Settings;
+import com.slackwise.slackwiseradiobutton.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import katex.hourglass.in.mathlib.MathView;
 
 
-public class SlackWiseRadioButton extends RelativeLayout implements CheckableRadio {
+public class SlackWiseButton extends RelativeLayout implements CheckableRadio {
+
+
+    String[] langArray = {"java","python","javascript","ruby","c#","php","sql","c++"};
+    HashMap<String,String> map = new HashMap<String, String>();
 
     //type text
     TextView textView;
     int mTextColor = Color.BLACK;
-    float mTextSize = 15f;
+    float mTextSize = 10f;
     Typeface mTextTypeFace;
     String mtextViewValue = "";
 
@@ -49,14 +56,13 @@ public class SlackWiseRadioButton extends RelativeLayout implements CheckableRad
     float mEquationTextSize = 0f;
 
 
-    int mBackground = Color.WHITE;
-    String mViewType = "text";
+
+    String mViewType = "1";
     int mSelectedBackground;
     float padding;
     int selectedTextColor;
 
-    // Constants
-    public static final int DEFAULT_TEXT_COLOR = Color.TRANSPARENT;
+
 
 
 
@@ -72,29 +78,43 @@ public class SlackWiseRadioButton extends RelativeLayout implements CheckableRad
     // Constructors
     //================================================================================
 
-    public SlackWiseRadioButton(Context context) {
+    public SlackWiseButton(Context context) {
         super(context);
+        map.put("text","1");
+        map.put("code","2");
+        map.put("equation","3");
         setupView();
     }
 
-    public SlackWiseRadioButton(Context context, AttributeSet attrs) {
+    public SlackWiseButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         parseAttributes(attrs);
+        map.put("text","1");
+        map.put("code","2");
+        map.put("equation","3");
         setupView();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
-    public SlackWiseRadioButton(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SlackWiseButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         parseAttributes(attrs);
+        map.put("text","1");
+        map.put("code","2");
+        map.put("equation","3");
         setupView();
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public SlackWiseRadioButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public SlackWiseButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         parseAttributes(attrs);
+        map.put("text","1");
+        map.put("code","2");
+        map.put("equation","3");
         setupView();
+
     }
 
     //================================================================================
@@ -103,29 +123,29 @@ public class SlackWiseRadioButton extends RelativeLayout implements CheckableRad
 
     private void parseAttributes(AttributeSet attrs) {
         TypedArray a = getContext().obtainStyledAttributes(attrs,
-                R.styleable.srb, 0, 0);
+                R.styleable.slk, 0, 0);
         Resources resources = getContext().getResources();
         try {
 
-            mtextViewValue = a.getString(R.styleable.srb_setText);
-            mTextSize = a.getDimension(R.styleable.srb_setTextSize,15f);
-            mTextColor = a.getColor(R.styleable.srb_setTextColor,Color.WHITE);
+            mtextViewValue = a.getString(R.styleable.slk_setText);
+            mTextSize = a.getDimension(R.styleable.slk_setTextSize,5f);
+            mTextColor = a.getColor(R.styleable.slk_setTextColor,Color.WHITE);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                mTextTypeFace = a.getFont(R.styleable.srb_setTypfeFace);
+                mTextTypeFace = a.getFont(R.styleable.slk_setTypeFace);
             }
-            mEquation = a.getString(R.styleable.srb_setEquation);
-            mEquationTextSize = a.getDimension(R.styleable.srb_setEquationSize,15f);
-            mEquationTextColor = a.getColor(R.styleable.srb_setEquationColor,Color.BLACK);
-            padding = a.getDimension(R.styleable.srb_setPadding,0f);
-            selectedTextColor = a.getColor(R.styleable.srb_selectedTextColor,Color.GREEN);
-            mEquationViewBackgroundColor = a.getColor(R.styleable.srb_setEquationViewBackgroundColor,Color.BLACK);
-            mSourceCode = a.getString(R.styleable.srb_setSourceCode);
-            mCodeLanguage = a.getString(R.styleable.srb_setLang);
+            mEquation = a.getString(R.styleable.slk_setEquation);
+            mEquationTextSize = a.getDimension(R.styleable.slk_setEquationSize,15f);
+            mEquationTextColor = a.getColor(R.styleable.slk_setEquationColor,Color.BLACK);
+            padding = a.getDimension(R.styleable.slk_setPadding,0f);
+            selectedTextColor = a.getColor(R.styleable.slk_selectedTextColor,Color.GREEN);
+            mEquationViewBackgroundColor = a.getColor(R.styleable.slk_setEquationViewBackgroundColor,Color.BLACK);
+            mSourceCode = a.getString(R.styleable.slk_setSourceCode);
+            mCodeLanguage = a.getString(R.styleable.slk_setLang);
 
-            mViewType = a.getString(R.styleable.srb_setRadioButtonViewType);
-            mBackground = a.getResourceId(R.styleable.srb_setBackground,R.color.White);
-            mSelectedBackground = a.getResourceId(R.styleable.srb_setSelectedBackground,R.color.grey);
+            mViewType = a.getString(R.styleable.slk_setRadioButtonViewType);
+            mSelectedBackground = a.getResourceId(R.styleable.slk_setSelectedBackground,R.color.grey);
+
                     } finally {
             a.recycle();
         }
@@ -141,54 +161,94 @@ public class SlackWiseRadioButton extends RelativeLayout implements CheckableRad
         View view = null;
         LayoutInflater inflater = LayoutInflater.from(getContext());
 
-        if(mViewType.equalsIgnoreCase("1")){
+        float  dpPadding = PixelsToDp(padding,getContext());
 
-           view =  inflater.inflate(R.layout.radio_type_text, this, true);
+        if(mViewType == null){
+
+
+
+        }
+        else if(mViewType.equalsIgnoreCase("1")){
+
+           view =  inflater.inflate(R.layout.type_text, this, true);
+
+           //float pxTextSize = GetPxEquivalent(mTextSize);
+           float dpTextSize = PixelsToDp(mTextSize,getContext());
            textView = view.findViewById(R.id.text_view);
-           textView.setTextSize(mTextSize);
+           textView.setTextSize(dpTextSize);
            textView.setText(mtextViewValue);
            textView.setTypeface(mTextTypeFace);
            textView.setTextColor(mTextColor);
-           //setPadding(padding,padding,padding,padding);
+           setPadding((int)dpPadding,(int)dpPadding,(int)dpPadding,(int)dpPadding);
         }
         else if(mViewType.equalsIgnoreCase("2")){
 
-            view =  inflater.inflate(R.layout.radio_type_codes, this, true);
+            view =  inflater.inflate(R.layout.type_codes, this, true);
             mCodeView  = view.findViewById(R.id.codes_view);
+            String langFromArray;
+            try {
+                 langFromArray = langArray[Integer.parseInt(mCodeLanguage)-1];
+            }
+            catch (NumberFormatException e){
+
+                langFromArray = mCodeLanguage;
+            }
+
 
             Codeview.with(getContext())
                     .withCode(mSourceCode)
                     .setStyle(Settings.WithStyle.XCODE)
-                    .setLang(Settings.Lang.JAVA)
+                    .setLang(langFromArray)
+                    .setAutoWrap(true)
                     .into(mCodeView);
+            setPadding((int)dpPadding,(int)dpPadding,(int)dpPadding,(int)dpPadding);
+
         }
         else if(mViewType.equalsIgnoreCase("3")){
 
-            view =  inflater.inflate(R.layout.radio_type_equations, this, true);
+            view =  inflater.inflate(R.layout.type_equations, this, true);
+
+            float dpEquationSize = PixelsToDp(mEquationTextSize,getContext());
             equationView = view.findViewById(R.id.equations_view);
             equationView.setViewBackgroundColor(mEquationViewBackgroundColor);
-            equationView.setTextSize((int)mEquationTextSize);
+            equationView.setTextSize((int)dpEquationSize);
             equationView.setTextColor(mEquationTextColor);
             equationView.setDisplayText(mEquation);
+            setPadding((int)dpPadding,(int)dpPadding,(int)dpPadding,(int)dpPadding);
 
         }
         else{
 
-            view =  inflater.inflate(R.layout.radio_type_text, this, true);
+            view =  inflater.inflate(R.layout.type_text, this, true);
+
+
+            //float pxTextSize = GetPxEquivalent(mTextSize);
+
+            float dpTextSize = PixelsToDp(mTextSize,getContext());
             textView = view.findViewById(R.id.text_view);
-            textView.setTextSize(mTextSize);
+            textView.setTextSize(dpTextSize);
             textView.setText(mtextViewValue);
             textView.setTypeface(mTextTypeFace);
             textView.setTextColor(mTextColor);
+            setPadding((int)dpPadding,(int)dpPadding,(int)dpPadding,(int)dpPadding);
 
         }
+
         mInitialBackgroundDrawable = getBackground();
     }
+
+
 
 
     //================================================================================
     // Overriding default behavior
     //================================================================================
+
+
+    public  float PixelsToDp(float px, Context context){
+
+        return  px/((float)context.getResources().getDisplayMetrics().densityDpi/ DisplayMetrics.DENSITY_DEFAULT);
+    }
 
     @Override
     public void setOnClickListener(@Nullable OnClickListener l) {
@@ -207,18 +267,141 @@ public class SlackWiseRadioButton extends RelativeLayout implements CheckableRad
     public void setSourceCode(String mSourceCode) {
         this.mSourceCode = mSourceCode;
 
+        String langFromArray;
+        try {
+            langFromArray = langArray[Integer.parseInt(mCodeLanguage)-1];
+        }
+        catch (NumberFormatException e){
+
+            langFromArray = mCodeLanguage;
+        }
         Codeview.with(getContext())
                 .withCode(mSourceCode)
                 .setStyle(Settings.WithStyle.XCODE)
-                .setLang(Settings.Lang.JAVA)
+                .setLang(langFromArray)
                 .into(mCodeView);
     }
 
     public void setCodeLanguage(String mCodeLanguage) {
+
+        String lang = mCodeLanguage;
+        Codeview.with(getContext())
+                .withCode(mSourceCode)
+                .setStyle(Settings.WithStyle.XCODE)
+                .setLang(lang)
+                .into(mCodeView);
         this.mCodeLanguage = mCodeLanguage;
     }
 
+    public void setViewType(String mViewType) {
+        this.mViewType = map.get(mViewType);
+        setupView();
+    }
 
+    public void setTextColor(int mTextColor) {
+        this.mTextColor = mTextColor;
+
+        if(textView != null){
+
+            textView.setTextColor(mTextColor);
+        }
+
+    }
+
+    public void setTextSize(float mTextSize) {
+
+        this.mTextSize = mTextSize;
+        if(textView != null){
+
+            textView.setTextSize(mTextSize);
+        }
+
+    }
+
+
+    public void setTextTypeFace(Typeface mTextTypeFace) {
+        this.mTextTypeFace = mTextTypeFace;
+        if(textView != null){
+
+            textView.setTypeface(mTextTypeFace);
+        }
+
+    }
+
+    public void setPadding(float padding) {
+        this.padding = padding;
+
+        setPadding((int)padding,(int)padding,(int)padding,(int)padding);
+    }
+
+    public void setTextViewValue(String mtextViewValue) {
+
+        this.mtextViewValue = mtextViewValue;
+        if(textView != null){
+
+            textView.setText(mtextViewValue);
+
+        }
+    }
+
+    public void setSelectedBackground(int mSelectedBackground) {
+
+        this.mSelectedBackground = mSelectedBackground;
+
+    }
+
+    public void setSelectedTextColor(int selectedTextColor) {
+
+        this.selectedTextColor = selectedTextColor;
+
+    }
+
+    public void setEquation(String mEquation) {
+
+        this.mEquation = mEquation;
+
+        if(equationView != null){
+
+
+            equationView.setDisplayText(mEquation);
+
+        }
+    }
+
+    public void setEquationTextColor(int mEquationTextColor) {
+
+        this.mEquationTextColor = mEquationTextColor;
+
+        if(equationView != null){
+
+            equationView.setTextColor(mEquationTextColor);
+        }
+    }
+
+    public void setEquationTextSize(float mEquationTextSize) {
+
+       // float pxSize = GetPxEquivalent(mEquationTextSize);
+        this.mEquationTextSize = mEquationTextSize;
+        equationView.setTextSize((int) mEquationTextSize);
+    }
+
+    public void setEquationViewBackgroundColor(int mEquationViewBackgroundColor) {
+
+        this.mEquationViewBackgroundColor = mEquationViewBackgroundColor;
+
+        if(equationView != null){
+
+            equationView.setViewBackgroundColor(mEquationViewBackgroundColor);
+        }
+    }
+
+    private float GetPxEquivalent(float dp){
+        float px;
+        float density = getContext().getResources().getDisplayMetrics().density;
+        return   px = Math.round((float) dp * density);
+
+
+    }
 
     public OnTouchListener getOnTouchListener() {
         return mOnTouchListener;
@@ -253,6 +436,15 @@ public class SlackWiseRadioButton extends RelativeLayout implements CheckableRad
 
     public void setNormalState() {
         setBackground(mInitialBackgroundDrawable);
+
+        if(textView != null){
+
+            textView.setTextColor(mTextColor);
+        }
+        if(equationView != null){
+
+            equationView.setTextColor(mEquationTextColor);
+        }
 
     }
 

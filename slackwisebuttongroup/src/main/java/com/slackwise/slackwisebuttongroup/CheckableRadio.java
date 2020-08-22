@@ -1,4 +1,4 @@
-package com.slackwise.slackwiseradiobutton;
+package com.slackwise.slackwisebuttongroup;
 
 import android.view.View;
 import android.widget.Checkable;
